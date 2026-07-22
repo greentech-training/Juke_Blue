@@ -14,7 +14,7 @@ const MOCK_DOUBLE_BLUE_PRODUCT = {
   images: [{ src: '/images/DoubleBlue.jpeg' }],
   stock_status: "instock",
   stock_quantity: 99,
-  // Add distillery product URL
+  // Link to distillery product page for direct purchase
   distillery_url: "https://dwersteg.de/collections/partner-editions/products/juke-blue-double-blue-doppelkorn-38"
 };
 // --- END PRODUCT DATA ---
@@ -58,7 +58,7 @@ export default function ShopPage() {
       return;
     }
     
-    // Redirect to distillery product page with quantity parameter
+    // Redirect to distillery with quantity pre-filled in the URL
     const distilleryUrl = new URL(product.distillery_url);
     distilleryUrl.searchParams.set('quantity', quantity);
     window.location.href = distilleryUrl.toString();
@@ -91,13 +91,10 @@ export default function ShopPage() {
       <div className="flex-1 flex justify-center items-center p-4 mt-0 lg:mt-8 w-full hover:scale-105 transition-transform duration-300">
         {imageUrl ? (
           <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
-            {/* Layer 1 – Nautical */}
+            {/* Triple-border wrapper: nautical > antique > blush */}
             <div className="rounded-3xl bg-nautical p-[6px] shadow-xl">
-              {/* Layer 2 – Antique */}
               <div className="rounded-3xl bg-antique p-[6px]">
-                {/* Layer 3 – Blush */}
                 <div className="rounded-3xl bg-blush p-[6px]">
-                  {/* Image container */}
                   <div className="relative h-[24rem] sm:h-[24rem] md:h-[28rem] lg:h-[40rem] xl:h-[48rem] rounded-2xl overflow-hidden">
                     <Image
                       src={imageUrl}

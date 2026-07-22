@@ -31,7 +31,7 @@ export default function WelcomeGate() {
   const [showError, setShowError] = useState(false);
 
   useEffect(() => {
-    const isAgeVerified = sessionStorage.getItem('ageVerified');
+    const isAgeVerified = getCookie('ageVerified');
     const cookieConsent = getCookie('cookieConsentPrefs');
     if (!isAgeVerified || !cookieConsent) {
       setShowModal(true);
@@ -50,7 +50,7 @@ export default function WelcomeGate() {
   const handleContinue = () => {
     if (ageConfirmed) {
       setStep('cookies');
-      sessionStorage.setItem('ageVerified', 'true');
+      setCookie('ageVerified', 'true');
       setShowError(false);
     } else {
       setShowError(true);

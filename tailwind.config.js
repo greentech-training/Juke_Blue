@@ -10,10 +10,10 @@ module.exports = {
       },
       colors: {
         nautical: "#25394B",
-        antique:  "#F2E3C0", // This existing color will be used for text brightening on hover
-        blush:    "#C68CAF", // Your current text color
-        'blush-darker': '#B07B9E', // 
-        'antique-medium': '#E0D0AB', // 
+        antique:  "#F2E3C0",
+        blush:    "#C68CAF",
+        'blush-darker': '#B07B9E',
+        'antique-medium': '#E0D0AB',
       },
       boxShadow: {
         lg: '0 10px 15px -3px rgba(10,46,66,0.1), 0 4px 6px -2px rgba(10,46,66,0.05)',
@@ -23,13 +23,13 @@ module.exports = {
         shadow: 'box-shadow',
       },
       backgroundImage: {
-        grain:   "url('/images/sand-background.jpeg')",
-        backgroundImage: "url('/images/vector-background.jpeg')",
+        grain:   "url('/images/sand-background.webp')",
+        backgroundImage: "url('/images/vector-background.png')",
       },
-      // --- NEW: Define custom text shadows using existing colors or neutral white ---
+      // Text shadows
       textShadow: {
-        'default': '2px 2px 0 rgba(0,0,0,0.4)', // Your existing "cut-out" text shadow
-        // Subtle glow using a neutral white (rgba(255,255,255,...)) to provide a light source effect
+        'default': '2px 2px 0 rgba(0,0,0,0.4)',
+        // Soft white glow — works well on colored backgrounds
         'subtle-glow': '0 0 8px rgba(255,255,255,0.6), 0 0 15px rgba(255,255,255,0.4)',
       },
     },

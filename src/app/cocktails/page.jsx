@@ -8,7 +8,7 @@ export default function GrandCocktailsPage() {
       name: "Borrowed Time",
       tagline: "Enjoy it while it lasts.",
       image: {
-        src: "/images/BorrowedTime.jpeg", // Remember to place your images here
+        src: "/images/BorrowedTime.jpeg",
         alt: "A vibrant blue cocktail with a lemon slice and a splash of pineapple juice, evoking a tropical lagoon."
       },
       ingredients: [
@@ -29,12 +29,12 @@ export default function GrandCocktailsPage() {
       name: "The Pelican",
       tagline: "Do the Pelican. This is how it goes.",
       image: {
-        src: "/images/ThePelican.jpeg", // Remember to place your images here
+        src: "/images/ThePelican.jpeg",
         alt: "A deep reddish-orange cocktail with visible muddled cherries at the bottom, garnished with an orange peel."
       },
       ingredients: [
         "1 shot of Amaretto",
-        "1 shot of Double Blue", // Assumed 'Double Blue' replaces 'Korn' for consistency
+        "1 shot of Double Blue",
         "10 fresh cherries",
         "1 shot of freshly squeezed lemon juice",
         "10ml simple syrup",
@@ -52,11 +52,11 @@ export default function GrandCocktailsPage() {
       name: "Rockabone Bay",
       tagline: "A delight for summer lovers.",
       image: {
-        src: "/images/5AM.jpeg", // Remember to place your images here
+        src: "/images/5AM.jpeg",
         alt: "A clear, serene cocktail with fresh sprigs of rosemary, lavender, and sage, suggesting a morning mist."
       },
       ingredients: [
-        "1 shot of Double Blue", // Assumed 'Double Blue' replaces 'Korn' for consistency
+        "1 shot of Double Blue",
         "½ shot of elderflower syrup",
         "1 shot of freshly squeezed lemon juice",
         "Splash of soda water or tonic",
@@ -72,13 +72,13 @@ export default function GrandCocktailsPage() {
   ];
 
   return (
-    <div className=""> {/* Main page background - this can be full width */}
+    <div className="">
 
       {/* This div is EXCLUSIVELY for the large frame, allowing it to span wider */}
-      <div className="relative w-full max-w-[1100px] mx-auto mt-36 aspect-[1.6/1] lg:aspect-[1.9/1]">{/* Frame container */}
+      <div className="relative w-full max-w-[1100px] mx-auto mt-36 aspect-[1.6/1] lg:aspect-[1.9/1]">
         {/* The frame image as a background */}
         <Image
-          src="/images/frame-cocktail.jpeg" // Verify this path!
+          src="/images/frame-cocktail.jpeg"
           alt="Decorative frame for title"
           layout="fill"
           objectFit="contain"
@@ -92,21 +92,15 @@ export default function GrandCocktailsPage() {
         </h1>
       </div>
 
-      {/*
-        This div now wraps ONLY the content that you want to keep
-        constrained to `max-w-7xl` and centered,
-        which includes your cocktail cards and the navigation button.
-      */}
       
-      <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8"> {/* Added horizontal padding for smaller screens */}
+      <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
 
-        {/* Adjusted grid for smaller screens */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12"> {/* Changed gap and added md:grid-cols-2 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12">
             
           {cocktails.map((cocktail, index) => (
             <div
               key={index}
-              className="relative bg-antique rounded-3xl shadow-xl border-4 border-nautical p-6 sm:p-8 transform hover:scale-105 transition-all duration-500 ease-in-out group" // Adjusted padding here
+              className="relative bg-antique rounded-3xl shadow-xl border-4 border-nautical p-6 sm:p-8 transform hover:scale-105 transition-all duration-500 ease-in-out group"
             >
               {/* --- Sand texture overlay --- */}
               {/* <div className="absolute inset-0 bg-grain bg-[length:200px_200px] bg-center opacity-30 rounded-2xl pointer-events-none z-0"></div> */}
@@ -117,7 +111,7 @@ export default function GrandCocktailsPage() {
               {/* Main content container with higher z-index */}
               <div className="relative z-10">
                 {/* Cocktail Name */}
-                <h2 className="font-title text-3xl sm:text-4xl text-nautical text-center mb-3 sm:mb-4 text-shadow-default mt-4 sm:mt-6"> {/* Adjusted font size and margin */}
+                <h2 className="font-title text-3xl sm:text-4xl text-nautical text-center mb-3 sm:mb-4 text-shadow-default mt-4 sm:mt-6">
                   {cocktail.name}
                 </h2>
                 <p className="font-sans text-sm sm:text-base text-nautical text-center italic mb-6 sm:mb-8">
@@ -125,7 +119,7 @@ export default function GrandCocktailsPage() {
                 </p>
 
                 {/* Cocktail Image - Porthole effect */}
-                <div className="relative w-40 h-40 sm:w-48 sm:h-48 mx-auto mb-6 sm:mb-8 rounded-full border-4 border-nautical overflow-hidden shadow-lg group-hover:border-blush transition-colors duration-300 z-10"> {/* Adjusted image size */}
+                <div className="relative w-40 h-40 sm:w-48 sm:h-48 mx-auto mb-6 sm:mb-8 rounded-full border-4 border-nautical overflow-hidden shadow-lg group-hover:border-blush transition-colors duration-300 z-10">
                   <div className="absolute inset-0 rounded-full border-2 border-antique z-20"></div>
                   <Image
                     src={cocktail.image.src}
@@ -138,9 +132,9 @@ export default function GrandCocktailsPage() {
                 </div>
 
                 {/* Ingredients */}
-                <div className="mb-6 sm:mb-8 z-10"> {/* Adjusted margin */}
-                  <h3 className="font-sans text-xl sm:text-2xl text-blush font-bold mb-2 sm:mb-3 text-shadow-subtle-glow">Ingredients:</h3> {/* Adjusted font size */}
-                  <ul className="list-disc list-inside text-nautical text-base sm:text-lg space-y-1 sm:space-y-2 leading-relaxed"> {/* Adjusted font size and spacing */}
+                <div className="mb-6 sm:mb-8 z-10">
+                  <h3 className="font-sans text-xl sm:text-2xl text-blush font-bold mb-2 sm:mb-3 text-shadow-subtle-glow">Ingredients:</h3>
+                  <ul className="list-disc list-inside text-nautical text-base sm:text-lg space-y-1 sm:space-y-2 leading-relaxed">
                     {cocktail.ingredients.map((ingredient, i) => (
                       <li key={i}>{ingredient}</li>
                     ))}
@@ -149,17 +143,17 @@ export default function GrandCocktailsPage() {
 
                 {/* Instructions */}
                 <div className="z-10">
-                  <h3 className="font-sans text-xl sm:text-2xl text-blush font-bold mb-2 sm:mb-3 text-shadow-subtle-glow">Instructions:</h3> {/* Adjusted font size */}
-                  <ol className="list-decimal list-inside text-nautical text-base sm:text-lg space-y-1 sm:space-y-2 leading-relaxed"> {/* Adjusted font size and spacing */}
+                  <h3 className="font-sans text-xl sm:text-2xl text-blush font-bold mb-2 sm:mb-3 text-shadow-subtle-glow">Instructions:</h3>
+                  <ol className="list-decimal list-inside text-nautical text-base sm:text-lg space-y-1 sm:space-y-2 leading-relaxed">
                     {cocktail.instructions.map((instruction, i) => (
                       <li key={i}>{instruction}</li>
                     ))}
                   </ol>
                 </div>
-              </div> {/* End of main content container */}
+              </div>
 
               {/* Optional: Wax seal / decorative element */}
-              <div className="absolute -bottom-4 right-4 w-12 h-12 sm:w-16 sm:h-16 bg-blush rounded-full flex items-center justify-center text-antique font-title text-xl sm:text-2xl border-2 border-nautical shadow-md transform group-hover:rotate-12 transition-transform duration-300 z-20"> {/* Adjusted size and position */}
+              <div className="absolute -bottom-4 right-4 w-12 h-12 sm:w-16 sm:h-16 bg-blush rounded-full flex items-center justify-center text-antique font-title text-xl sm:text-2xl border-2 border-nautical shadow-md transform group-hover:rotate-12 transition-transform duration-300 z-20">
                 {index + 1}
               </div>
             </div>
@@ -167,13 +161,13 @@ export default function GrandCocktailsPage() {
         </div>
 
         {/* Grand Navigation Button */}
-        <div className="text-center mt-16 sm:mt-20"> {/* Adjusted margin */}
-          <Link href="/taverns" className="inline-flex items-center px-8 py-4 sm:px-10 sm:py-5 text-lg bg-antique text-nautical border-2 border-nautical rounded-lg font-title shadow-md hover:bg-blush transition-all duration-200"> {/* Adjusted padding and font size */}
+        <div className="text-center mt-16 sm:mt-20">
+          <Link href="/taverns" className="inline-flex items-center px-8 py-4 sm:px-10 sm:py-5 text-lg bg-antique text-nautical border-2 border-nautical rounded-lg font-title shadow-md hover:bg-blush transition-all duration-200">
             <span className="">Find the Juke</span>
           </Link>
         </div>
 
-      </div> {/* End of the max-w-7xl container for cards and button */}
+      </div>
 
     </div>
   );

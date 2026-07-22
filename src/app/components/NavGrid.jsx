@@ -54,25 +54,25 @@ export default function NavGrid() {
 //   {
 //     title: "SHOP",
 //     path: "/shop",
-//     image: "/images/shop.jpeg", // If this image has a frame, the shadow will surround it.
+//     image: "/images/shop.jpeg",
 
 //   },
 //   {
 //     title: "COCKTAILS",
 //     path: "/cocktails",
-//     image: "/images/cocktail.jpeg", // Same here
+//     image: "/images/cocktail.jpeg",
 
 //   },
 //   {
 //     title: "TUNES",
 //     path: "/tunes",
-//     image: "/images/tunes.jpeg", // Same here
+//     image: "/images/tunes.jpeg",
 
 //   },
 //   {
 //     title: "TAVERNS",
 //     path: "/taverns",
-//     image: "/images/taverns.jpeg", // Same here
+//     image: "/images/taverns.jpeg",
 
 //   }
 // ];
@@ -86,11 +86,11 @@ export default function NavGrid() {
 //           href={link.path}
 //           className="group relative block w-full rounded-xl overflow-hidden bg-transparent border-none
 //                     transition-transform duration-300 hover:scale-105 flex flex-col
-//                     shadow-lg shadow-[rgba(0,0,0,0.4)]" // This shadow applies to the entire <a> element's boundary.
+//                     shadow-lg shadow-[rgba(0,0,0,0.4)]"
 //         >
 //           <div className="relative w-full h-full flex-grow overflow-hidden">
 //             <img
-//               src={link.image} // This image source likely contains the frame you don't want.
+//               src={link.image}
 //               alt={link.title}
 //               className="w-full h-full object-cover transition-transform duration-300 opacity-100"
 //             />

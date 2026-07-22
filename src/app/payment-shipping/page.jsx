@@ -1,5 +1,5 @@
 // src/app/payment-shipping/page.js
-import Link from 'next/link'; // Assuming Next.js for Link component, though not used directly in this content, it's good practice for page components.
+import Link from 'next/link';
 
 export default function PaymentShipping() {
   return (

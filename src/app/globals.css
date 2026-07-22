@@ -27,6 +27,29 @@ body {
   animation: slow-float-reverse 10s ease-in-out infinite;
 }
 
+/* ─── Background layer fade-in: eliminates banding on initial page load ─── */
+@keyframes grain-fade {
+  from { opacity: 0; }
+  to   { opacity: 0.30; }
+}
+@keyframes vector-fade {
+  from { opacity: 0; }
+  to   { opacity: 0.15; }
+}
+
+/* Only animate when the user hasn't requested reduced motion.
+   Without this block the Tailwind opacity-* classes act as the fallback. */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-grain-fade {
+    /* fill-mode: both → element starts invisible before the animation fires */
+    animation: grain-fade 1.8s ease-out both;
+  }
+  .animate-vector-fade {
+    animation: vector-fade 2.4s ease-out both;
+    animation-delay: 0.4s; /* slight lag so grain settles first */
+  }
+}
+
 
 .prose {
   @apply text-antique; 
@@ -49,7 +72,29 @@ body {
 }
 
 body.overflow-hidden {
-  overflow: hidden !important; /* Use !important to ensure it overrides other styles */
+  overflow: hidden !important;
+}
+
+/* ─── Custom scrollbar – Taverns map sidebar ─── */
+/* WebKit / Blink (Chrome, Edge, Safari) */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(242, 227, 192, 0.35); /* antique at low opacity */
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(198, 140, 175, 0.65); /* blush on hover */
+}
+/* Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(242, 227, 192, 0.35) transparent;
 }
 
 @media (max-width: 640px) {
@@ -63,7 +108,7 @@ body.overflow-hidden {
     max-width: 96vw !important;
     margin: 0 !important;
     padding: 0 !important;
-    max-height: 200px !important; /* Makes the content area shorter */
+    max-height: 280px !important;
     overflow-y: auto !important; /* Adds scrollbar if content exceeds max-height */
   }
 

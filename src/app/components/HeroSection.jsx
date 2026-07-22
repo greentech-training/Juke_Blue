@@ -246,27 +246,13 @@
 
 //       {/* Optional gold underline */}
 //       <div
-//         className="absolute bottom-0 left-0 w-full h-[2px] z-30 pointer-events-none"
-//         style={{
-//           backgroundImage: 'linear-gradient(to right, #f5e7c4, #d6b97b, #f5e7c4)',
-//           boxShadow: '0 0 4px 2px rgba(245, 231, 196, 0.3)',
-//           opacity: 0.8,
-//           // ✨ IMPORTANT: You will likely need to adjust 'bottom' for pixel-perfect alignment
-//           // with a Vimeo background, as it's harder to control precisely.
-//           // Start with something like -3px or -5px and tweak it.
-//           bottom: '-3px', // Example adjustment
-//         }}
-//       />
-//     </section>
-//   );
-// }
 
 'use client';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function getVideoId(url) {
-  // Extract the video ID from https://www.youtube.com/embed/VIDEO_ID
+  // Extract video ID from youtube.com/embed/VIDEO_ID
   const parts = url.split('/');
   return parts[parts.length - 1];
 }
@@ -279,13 +265,22 @@ export default function HeroSection({
   buttonText
 }) {
   const [showPlayer, setShowPlayer] = useState(false);
-  const [iframeStyles, setIframeStyles] = useState({});
+  const [iframeStyles, setIframeStyles] = useState({
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    width: '100%',
+    height: '100%',
+    transform: 'translate(-50%, -50%) scale(1.15)',
+    pointerEvents: 'none',
+    opacity: 0,
+  });
   const clipRef = useRef(null);
   const playerRef = useRef(null);
 
   const videoId = getVideoId(fullVideo);
 
-  // Load YouTube Iframe API on mount
+  // Load YouTube Iframe API once on mount
   useEffect(() => {
     if (!window.YT) {
       const tag = document.createElement('script');
@@ -295,7 +290,7 @@ export default function HeroSection({
     }
   }, []);
 
-  // On showPlayer: use the YouTube Player API to play with sound
+  // Once showPlayer is true, use the YT Player API to auto-play with sound
   useEffect(() => {
     if (showPlayer && playerRef.current) {
       const iframe = playerRef.current.querySelector('iframe');
@@ -319,7 +314,7 @@ export default function HeroSection({
     }
   }, [showPlayer]);
 
-  // For background preview: apply cover sizing
+  // Calculates iframe dimensions to fill container while maintaining 16:9 ratio
   const applyCoverStyles = useCallback(() => {
     if (clipRef.current) {
       const container = clipRef.current;
@@ -344,6 +339,8 @@ export default function HeroSection({
         height: `${newIframeHeight}px`,
         transform: 'translate(-50%, -50%)',
         pointerEvents: 'none',
+        opacity: 1,
+        transition: 'opacity 0.5s ease-in-out',
       });
     }
   }, []);
@@ -354,7 +351,7 @@ export default function HeroSection({
     return () => window.removeEventListener('resize', applyCoverStyles);
   }, [applyCoverStyles]);
 
-  // Handle background iframe restart after closing full player
+  // Locks body scroll when overlay is open
   useEffect(() => {
     document.body.style.overflow = showPlayer ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
@@ -365,16 +362,23 @@ export default function HeroSection({
       {/* Background Preview Video */}
       <div
         ref={clipRef}
-        className="absolute inset-0 -z-30 w-full h-full brightness-75 overflow-hidden"
+        className="absolute inset-0 -z-30 w-full h-full brightness-75 overflow-hidden pointer-events-none"
       >
         <iframe
-          src={`https://www.youtube.com/embed/${getVideoId(previewClip)}?autoplay=1&mute=1&loop=1&controls=0&playlist=${getVideoId(previewClip)}&modestbranding=1&rel=0&showinfo=0&playsinline=1`}
+          tabIndex={-1}
+          src={`https://www.youtube.com/embed/${getVideoId(previewClip)}?autoplay=1&mute=1&loop=1&controls=0&playlist=${getVideoId(previewClip)}&modestbranding=1&rel=0&showinfo=0&playsinline=1&iv_load_policy=3&disablekb=1`}
           frameBorder="0"
-          allow="autoplay; fullscreen; picture-in-picture"
-          style={iframeStyles}
+          allow="autoplay; fullscreen"
+          style={{
+            ...iframeStyles,
+            transform: `${iframeStyles.transform || 'translate(-50%, -50%)'} scale(1.15)`,
+            pointerEvents: 'none',
+          }}
           title="YouTube Preview Background"
           loading="eager"
         />
+        {/* Transparent glass overlay to absorb click/touch events and prevent player interaction */}
+        <div className="absolute inset-0 z-10 bg-transparent pointer-events-none" />
       </div>
 
       {/* Hero Content */}
@@ -438,7 +442,7 @@ export default function HeroSection({
           backgroundImage: 'linear-gradient(to right, #f5e7c4, #d6b97b, #f5e7c4)',
           boxShadow: '0 0 4px 2px rgba(245, 231, 196, 0.3)',
           opacity: 0.8,
-          //bottom: '-3px',
+        //bottom: '-3px',
         }}
       />
     </section>

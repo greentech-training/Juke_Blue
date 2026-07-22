@@ -4,199 +4,198 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useState, useMemo, useEffect } from "react";
-import Image from 'next/image';
+import Image from "next/image";
 
-// Dynamically import LeafletMap with no SSR:
 const LeafletMap = dynamic(
   () => import("../components/LeafletMap").then((mod) => mod.default),
   { ssr: false }
 );
 
+// Static data outside component — never recreated on re-render
+const bars = [
+  {
+    id: 1,
+    name: "Schnapphahn",
+    address: "Dresdener Strasse 14, 10999 Berlin",
+    coordinates: [52.500873, 13.417224],
+    type: "Stockist",
+    description: "Enjoy a glass or buy a bottle of Juke here.",
+    image: "/images/schnapphahn-bar.jpeg",
+  },
+  {
+    id: 2,
+    name: "Piris",
+    address: "Boddinstraße 61, 12053 Berlin-Bezirk Neukölln",
+    coordinates: [52.480710, 13.433229],
+    type: "Stockist",
+    description: "Take a shot of the Juke at Piri's bar",
+    image: "/images/piris-bar.jpeg",
+  },
+  {
+    id: 3,
+    name: "Cake bar",
+    address: "Mariannenstraße 27, 10999 Berlin-Bezirk Friedrichshain-Kreuzberg",
+    coordinates: [52.5000, 13.4210],
+    type: "Signature cocktail",
+    description: "Taste the Morning Sun here",
+    image: "/images/cake_bar.webp",
+  },
+  {
+    id: 4,
+    name: "Nuovo Paladin",
+    address: "Fischerhüttenstraße 67, Berlin - Zehlendorf, 14163",
+    coordinates: [52.44093, 13.24327],
+    type: "Stockist",
+    description: "Enjoy the Juke as a digestif here.",
+    image: "/images/nuovo_paladin.webp",
+  },
+  {
+    id: 5,
+    name: "Edeka (Zahl)",
+    address: "Fischerhüttenstraße 68, 14163 Berlin",
+    coordinates: [52.44105, 13.24315],
+    type: "Stockist",
+    description: "Buy a bottle of the Juke here.",
+    image: "/images/edeka_zahl.webp",
+  },
+  {
+    id: 6,
+    name: "La Brezza",
+    address: "Weserstr. 16, 12047 Berlin",
+    coordinates: [52.4828, 13.4357],
+    type: "Signature cocktail",
+    description: "Get yourself on the Silent Freeways here",
+    image: "/images/la_brezza.webp",
+  },
+  {
+    id: 7,
+    name: "Kek Bar",
+    address: "Oranienstraße 31, 10999 Berlin",
+    coordinates: [52.5015144, 13.4189389],
+    type: "Signature cocktail",
+    description: "Take a little Borrowed Time here.",
+    image: "/images/kek_bar.webp",
+  },
+  {
+    id: 8,
+    name: "Silent Jazz Bar",
+    address: "Naumannstraße 3, 10829 Berlin",
+    coordinates: [52.482, 13.352],
+    type: "Stockist",
+    description: "Listen to live tunes on headphones with the Juke here.",
+    image: "/images/silent_jazz_bar.webp",
+  },
+  {
+    id: 9,
+    name: "Mokka Mitte Bar",
+    address: "Stadtbahnbogen 159 & 160, 10178 Berlin-Mitte",
+    coordinates: [52.5209, 13.3985],
+    type: "Stockist",
+    description: "Enjoy a shot by the shoreline here.",
+    image: "/images/mokka_mitte_bar.webp",
+  },
+];
+
+const initialCenter = [52.500873, 13.417223];
+
+function getZoomForWidth(width) {
+  if (width < 640) return 15;
+  if (width < 1024) return 16;
+  return 17;
+}
+
 export default function MapPage() {
-  const bars = [
-    {
-      id: 1,
-      name: "Schnapphahn",
-      address: "Dresdener Strasse 14, 10999 Berlin",
-      coordinates: [52.500873, 13.417224],
-      ownerSignatureDrink: "Stockist",
-      image: "/images/schnapphahn-bar.jpeg"
-    },
-    {
-      id: 2,
-      name: "Nachtvogel",
-      address: "Oranienstrasse 39, 10999 Berlin",
-      coordinates: [52.5019685, 13.417207],
-      ownerSignatureDrink: "Aslan",
-      image: "/images/nachtvogel-bar.jpeg"
-    },
-    {
-      id: 3,
-      name: "Piri’s Bar and Diner",
-      address: "Boddinstraße 61, 12053 Berlin",
-      coordinates: [52.480710, 13.433229],
-      ownerSignatureDrink: "Jules",
-      image: "/images/piris-bar.jpeg"
-    }
-    
-    // ...add more bars if needed to test pagination
-  ];
-
-  const initialCenter = [52.500873, 13.417223]; // Berlin center
-  const getInitialZoom = () => {
-  if (typeof window !== "undefined") {
-    if (window.innerWidth < 640) return 15; // mobile (tailwind 'sm' breakpoint)
-    if (window.innerWidth < 1024) return 16; // tablet
-  }
-    return 17; // default for desktop
-  };
-
   const [initialZoom, setInitialZoom] = useState(17);
+  const [activeBarId, setActiveBarId] = useState(null);
 
+  // Responsive zoom — updates on window resize and device rotation
   useEffect(() => {
-    setInitialZoom(getInitialZoom());
+    const update = () => setInitialZoom(getZoomForWidth(window.innerWidth));
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
   }, []);
 
-
-  const [activeBarCenter, setActiveBarCenter] = useState(initialCenter);
-
-  // Pagination states
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5; // Number of bars to display per page
-
-  // Calculate bars for the current page
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentBars = useMemo(() =>
-    bars.slice(indexOfFirstItem, indexOfLastItem),
-    [bars, indexOfFirstItem, indexOfLastItem]
-  );
-
-  const totalPages = Math.ceil(bars.length / itemsPerPage);
-
-  const handleBarListItemClick = (coords) => {
-    setActiveBarCenter(coords);
-  };
-
-  const handlePageChange = (pageNumber) => {
-    if (pageNumber < 1 || pageNumber > totalPages) return; // Prevent going out of bounds
-    setCurrentPage(pageNumber);
-    // Optionally, reset map view or highlight first bar on new page
-    // For now, it will just re-render the list. The map center will remain unless a bar is clicked.
-  };
-
-  // Generate page numbers for pagination controls
-  const pageNumbers = [];
-  for (let i = 1; i <= totalPages; i++) {
-    pageNumbers.push(i);
-  }
+  // Derive the map center from the active bar ID — no float comparison needed
+  const activeBarCenter = useMemo(() => {
+    if (!activeBarId) return initialCenter;
+    const bar = bars.find((b) => b.id === activeBarId);
+    return bar ? bar.coordinates : initialCenter;
+  }, [activeBarId]);
 
   return (
     <div className="min-h-screen flex flex-col items-center py-16 px-4 relative">
-      <div className="absolute inset-0 bg-grainz bg-cover bg-center opacity-20 z-0" />
-      {/* This div is EXCLUSIVELY for the large frame, allowing it to span wider */}
-      <div className="relative w-full max-w-[1050px] mx-auto mb-20 mt-24 aspect-[1.6/1] lg:aspect-[1.9/1]">{/* Frame container */}
-        {/* The frame image as a background */}
-        <Image
-          src="/images/frame-map.jpeg" // Verify this path!
-          alt="Decorative frame for title"
-          layout="fill"
-          objectFit="contain"
-          objectPosition="center"
-          className="z-0"
-        />
+      <div className="absolute inset-0 bg-grain bg-cover bg-center opacity-20 z-0" />
 
-        {/* The title text, positioned absolutely over the frame */}
+      {/* Decorative frame container */}
+      <div className="relative w-full max-w-[1050px] mx-auto mb-8 sm:mb-14 lg:mb-20 mt-16 sm:mt-20 lg:mt-24 aspect-[1.6/1] lg:aspect-[1.9/1]">
+        <Image
+          src="/images/frame-map.jpeg"
+          alt="Decorative frame for title"
+          fill
+          className="object-contain object-center z-0"
+        />
         <h1 className="font-title text-xl sm:text-3xl md:text-4xl lg:text-[37px] text-nautical text-center leading-tight absolute inset-0 flex items-center justify-center px-[50px] py-[30px] sm:px-[120px] sm:py-[60px] lg:px-[350px] lg:py-[100px] sm:text-shadow-default z-10">
           Find the Juke
         </h1>
       </div>
 
       <div className="w-full max-w-7xl flex flex-col lg:flex-row gap-8 relative z-10">
-        {/* Sidebar with bar list */}
-        <div className="w-full lg:w-1/3 bg-nautical p-6 rounded-3xl shadow-xl border-4 border-antique overflow-y-auto max-h-[400px] lg:max-h-[800px] mb-8 lg:mb-0 flex flex-col"> {/* Added flex-col */}
+        {/* Sidebar */}
+        <div className="w-full lg:w-1/3 bg-nautical p-6 rounded-3xl shadow-xl border-4 border-antique h-[280px] sm:h-[350px] md:h-[500px] lg:h-[600px] flex flex-col">
           <h2 className="font-title text-3xl text-antique text-center mb-6 text-shadow-default">
             Locations
           </h2>
-          <ul className="flex-grow"> {/* Added flex-grow to ul */}
-            {currentBars.map((bar) => ( // Use currentBars for pagination
+          <ul className="flex-grow overflow-y-auto pr-1 select-none custom-scrollbar">
+            {bars.map((bar) => (
               <li
                 key={bar.id}
-                className="bg-antique p-4 rounded-lg mb-4 cursor-pointer hover:bg-[rgba(198,140,175,0.7)] transition-all duration-300 border border-nautical"
-                onClick={() => handleBarListItemClick(bar.coordinates)}
+                className={`bg-antique p-4 rounded-lg mb-4 cursor-pointer transition-all duration-300 border ${
+                  activeBarId === bar.id
+                    ? 'border-blush bg-blush/30 scale-[1.01]'
+                    : 'border-nautical hover:bg-[rgba(198,140,175,0.7)]'
+                }`}
+                onClick={() => setActiveBarId(bar.id)}
               >
-                <h3 className="font-title text-xl text-nautical">
+                <h3 className="font-title text-xl text-nautical font-bold">
                   {bar.name}
                 </h3>
-                <p className="font-sans text-base text-nautical">
-                  {bar.address}
-                </p>
+                <p className="font-sans text-base text-nautical">{bar.address}</p>
                 <p className="font-sans text-sm italic text-blush mt-2">
-                    {bar.ownerSignatureDrink === "Stockist" ? (
-                      <span className="font-bold">
-                        {bar.ownerSignatureDrink}
-                      </span>
-                    ) : (
-                      <>
-                        Signature drink by:{" "}
-                        <span className="font-bold">
-                          {bar.ownerSignatureDrink}
-                        </span>
-                      </>
-                    )}
-
+                  <span className="font-bold">{bar.type}</span>
                 </p>
+                {bar.description && (
+                  <p className="font-sans text-sm text-nautical/80 mt-1">
+                    {bar.description}
+                  </p>
+                )}
               </li>
             ))}
           </ul>
-
-          {/* Pagination Controls */}
-          {totalPages > 1 && ( // Only show pagination if more than one page
-            <nav className="mt-6 flex justify-center items-center space-x-2">
-              <button
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-                className="px-4 py-2 bg-antique text-nautical rounded-lg hover:bg-blush disabled:opacity-50 disabled:cursor-not-allowed font-sans text-sm"
-              >
-                Previous
-              </button>
-              {pageNumbers.map((number) => (
-                <button
-                  key={number}
-                  onClick={() => handlePageChange(number)}
-                  className={`px-4 py-2 rounded-lg font-sans text-sm ${
-                    currentPage === number
-                      ? "bg-blush text-antique"
-                      : "bg-antique text-nautical hover:bg-[rgba(198,140,175,0.7)]"
-                  }`}
-                >
-                  {number}
-                </button>
-              ))}
-              <button
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                className="px-4 py-2 bg-antique text-nautical rounded-lg hover:bg-blush disabled:opacity-50 disabled:cursor-not-allowed font-sans text-sm"
-              >
-                Next
-              </button>
-            </nav>
-          )}
         </div>
 
-        {/* Map area (dynamically loaded) */}
-      <div className="w-full lg:w-2/3 h-[400px] md:h-[500px] lg:h-[600px] rounded-3xl overflow-hidden shadow-xl border-4 border-nautical flex-grow">
-          {/* LeafletMap is client-only because of ssr: false */}
-          <LeafletMap bars={bars} center={activeBarCenter} zoom={initialZoom} />
+        {/* Mobile hint — no hover on touch, so tell users the list is interactive */}
+        <p className="lg:hidden text-center text-xs text-nautical/60 italic -mt-2">
+          Tap a location above to move the map ↑
+        </p>
+
+        {/* Map */}
+        <div className="w-full lg:w-2/3 h-[280px] sm:h-[350px] md:h-[500px] lg:h-[600px] rounded-3xl overflow-hidden shadow-xl border-4 border-nautical flex-grow">
+          <LeafletMap
+            bars={bars}
+            center={activeBarCenter}
+            zoom={initialZoom}
+            activeBarId={activeBarId}
+          />
         </div>
       </div>
 
-      <div className="text-center mt-12 sm:mt-16 relative z-10">
+      <div className="text-center mt-12 sm:mt-16 mb-8 relative z-10">
         <Link
           href="/cocktails"
           className="inline-flex items-center px-8 py-4 sm:px-10 sm:py-5 text-lg bg-antique text-nautical border-2 border-nautical rounded-lg font-title shadow-md hover:bg-blush transition-all duration-200"
         >
-          <span className="">Check the Cocktails</span>
+          <span>Check the Cocktails</span>
         </Link>
       </div>
     </div>

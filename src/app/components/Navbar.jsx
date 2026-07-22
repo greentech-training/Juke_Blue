@@ -7,17 +7,17 @@ export default function Navbar() {
   return (
     <>
       {/* Navigation bar */}
-      <nav className="bg-nautical/80 backdrop-blur-sm p-4 fixed w-full z-50 border-b border-antique"> {/* Added border-b and border-antique */}
+      <nav className="bg-nautical/80 backdrop-blur-sm p-4 fixed w-full z-50 border-b border-antique">
         {/* Faint gold pattern overlay */}
         <div className="absolute inset-0 z-0 opacity-5"
              style={{
-               backgroundImage: 'radial-gradient(circle at center, rgba(255, 215, 0, 0.1) 1px, transparent 1px)', // Faint gold dots/grain
-               backgroundSize: '8px 8px', // Adjust size for desired density
-               pointerEvents: 'none', // Ensures clicks pass through
+               backgroundImage: 'radial-gradient(circle at center, rgba(255, 215, 0, 0.1) 1px, transparent 1px)',
+               backgroundSize: '8px 8px',
+               pointerEvents: 'none',
              }}
         />
 
-        <div className="max-w-6xl mx-auto flex justify-between items-center relative z-10"> {/* Added relative z-10 */}
+        <div className="max-w-6xl mx-auto flex justify-between items-center relative z-10">
           {/* Logo */}
           <a href="/" className="flex items-center space-x-2">
             <img src="/images/Juke_Blue_Beige.jpeg" alt="Logo" className="w-10 h-13" />

@@ -5,6 +5,7 @@ import Link from 'next/link';
 // Custom Form Component for Brevo
 const BrevoSubscribeForm = () => {
   const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
   const [status, setStatus] = useState('idle'); // idle, sending, success, error
   const [message, setMessage] = useState('');
 
@@ -25,7 +26,7 @@ const BrevoSubscribeForm = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, firstName }),
       });
 
       const data = await response.json();
@@ -34,6 +35,7 @@ const BrevoSubscribeForm = () => {
         setStatus('success');
         setMessage('Successfully subscribed!');
         setEmail('');
+        setFirstName('');
       } else {
         setStatus('error');
         setMessage(data.error || 'Something went wrong');
@@ -45,31 +47,33 @@ const BrevoSubscribeForm = () => {
   };
 
   return (
-    <div>
-      <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+    <div className="w-full max-w-sm mx-auto">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        <input
+          type="text"
+          placeholder="First name"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          className="w-full px-4 py-2 rounded-lg text-gray-900 focus:outline-none"
+        />
         <input
           type="email"
           placeholder="Your email address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          onKeyUp={(event) => {
-            if (event.key === "Enter") {
-              handleSubmit();
-            }
-          }}
-          className="w-full sm:w-auto px-4 py-2 rounded-lg text-gray-900"
+          className="w-full px-4 py-2 rounded-lg text-gray-900 focus:outline-none"
         />
         <button
-          className="px-6 py-2 text-lg bg-antique text-nautical border-2 border-nautical rounded-lg font-title shadow-md hover:bg-blush transition-all duration-200"
-          onClick={handleSubmit}
+          type="submit"
+          className="w-full px-6 py-2 text-lg bg-antique text-nautical border-2 border-nautical rounded-lg font-title shadow-md hover:bg-blush transition-all duration-200"
           disabled={status === 'sending'}
         >
           Subscribe
         </button>
-      </div>
-      {status === "sending" && <div style={{ color: "#C68CAF", paddingTop: "10px" }}>Subscribing...</div>}
-      {status === "error" && <div style={{ color: "#F2E3C0", paddingTop: "10px" }}>{message}</div>}
-      {status === "success" && <div style={{ color: "#C68CAF", paddingTop: "10px" }}>Thank you! Please now check your inbox to confirm your email.</div>}
+      </form>
+      {status === "sending" && <div className="text-center" style={{ color: "#C68CAF", paddingTop: "10px" }}>Subscribing...</div>}
+      {status === "error" && <div className="text-center" style={{ color: "#F2E3C0", paddingTop: "10px" }}>{message}</div>}
+      {status === "success" && <div className="text-center" style={{ color: "#C68CAF", paddingTop: "10px" }}>Thank you! Please now check your inbox to confirm your email.</div>}
     </div>
   );
 };
