@@ -26,16 +26,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${rye.variable} h-full`}>
-      {/* Preload background textures early so they are cache-hot when CSS applies them.
-          This is the primary fix for the loading banding — images arrive before the
-          CSS background-image rule fires, so there is no visible intermediate state. */}
+      {/* Preload the vector background — grain is now an inline SVG (zero network cost) */}
       <head>
-        <link
-          rel="preload"
-          href="/images/sand-background.webp"
-          as="image"
-          type="image/webp"
-        />
         <link
           rel="preload"
           href="/images/vector-background.png"
@@ -46,11 +38,11 @@ export default function RootLayout({ children }) {
 
         <WelcomeGate />
 
-        {/* Grain texture — fades in smoothly from opacity 0 over 1.8 s */}
-        <div className="pointer-events-none fixed inset-0 -z-20 bg-grain bg-repeat bg-[length:55px_55px] opacity-30 mix-blend-multiply animate-grain-fade" />
+        {/* Grain texture — inline SVG, loads instantly with CSS, no network request */}
+        <div className="pointer-events-none fixed inset-0 -z-20 bg-grain bg-repeat bg-[length:55px_55px] opacity-30 sm:opacity-30 mix-blend-multiply" />
 
-        {/* Vector background — fades in with a 0.4 s delay so grain settles first */}
-        <div className="pointer-events-none fixed inset-0 -z-20 bg-backgroundImage bg-repeat bg-contain bg-[position:0%_0%] opacity-15 animate-vector-fade" />
+        {/* Vector background */}
+        <div className="pointer-events-none fixed inset-0 -z-20 bg-backgroundImage bg-repeat bg-contain bg-[position:0%_0%] opacity-15 sm:opacity-15" />
 
         <div className="relative z-10 min-h-screen flex flex-col">
           <Navbar />

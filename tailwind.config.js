@@ -23,7 +23,7 @@ module.exports = {
         shadow: 'box-shadow',
       },
       backgroundImage: {
-        grain:   "url('/images/sand-background.webp')",
+        grain:   "url('/images/sand-background.jpeg')",
         backgroundImage: "url('/images/vector-background.png')",
       },
       // Text shadows

@@ -27,28 +27,6 @@ body {
   animation: slow-float-reverse 10s ease-in-out infinite;
 }
 
-/* ─── Background layer fade-in: eliminates banding on initial page load ─── */
-@keyframes grain-fade {
-  from { opacity: 0; }
-  to   { opacity: 0.30; }
-}
-@keyframes vector-fade {
-  from { opacity: 0; }
-  to   { opacity: 0.15; }
-}
-
-/* Only animate when the user hasn't requested reduced motion.
-   Without this block the Tailwind opacity-* classes act as the fallback. */
-@media (prefers-reduced-motion: no-preference) {
-  .animate-grain-fade {
-    /* fill-mode: both → element starts invisible before the animation fires */
-    animation: grain-fade 1.8s ease-out both;
-  }
-  .animate-vector-fade {
-    animation: vector-fade 2.4s ease-out both;
-    animation-delay: 0.4s; /* slight lag so grain settles first */
-  }
-}
 
 
 .prose {

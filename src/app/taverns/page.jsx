@@ -152,7 +152,7 @@ export default function MapPage() {
                 key={bar.id}
                 className={`bg-antique p-4 rounded-lg mb-4 cursor-pointer transition-all duration-300 border ${
                   activeBarId === bar.id
-                    ? 'border-blush bg-blush/30 scale-[1.01]'
+                    ? 'border-nautical bg-[rgba(198,140,175,0.7)]'
                     : 'border-nautical hover:bg-[rgba(198,140,175,0.7)]'
                 }`}
                 onClick={() => setActiveBarId(bar.id)}

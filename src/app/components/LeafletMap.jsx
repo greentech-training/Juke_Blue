@@ -21,7 +21,10 @@ function MapRecenter({ center, activeBarId, markerRefs }) {
   useEffect(() => {
     if (!map || !center) return;
 
-    map.flyTo(center, map.getZoom());
+    map.flyTo(center, map.getZoom(), {
+      duration: 1.2,
+      easeLinearity: 0.25,
+    });
 
     if (!activeBarId) return;
 
