@@ -280,39 +280,7 @@ export default function HeroSection({
 
   const videoId = getVideoId(fullVideo);
 
-  // Load YouTube Iframe API once on mount
-  useEffect(() => {
-    if (!window.YT) {
-      const tag = document.createElement('script');
-      tag.src = "https://www.youtube.com/iframe_api";
-      const firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag?.parentNode?.insertBefore(tag, firstScriptTag);
-    }
-  }, []);
 
-  // Once showPlayer is true, use the YT Player API to auto-play with sound
-  useEffect(() => {
-    if (showPlayer && playerRef.current) {
-      const iframe = playerRef.current.querySelector('iframe');
-      if (!iframe) return;
-
-      const onPlayerReady = () => {
-        const player = new window.YT.Player(iframe, {
-          events: {
-            onReady: (event) => {
-              event.target.playVideo();
-            }
-          }
-        });
-      };
-
-      if (window.YT && window.YT.Player) {
-        onPlayerReady();
-      } else {
-        window.onYouTubeIframeAPIReady = onPlayerReady;
-      }
-    }
-  }, [showPlayer]);
 
   // Calculates iframe dimensions to fill container while maintaining 16:9 ratio
   const applyCoverStyles = useCallback(() => {
@@ -425,8 +393,7 @@ export default function HeroSection({
 
             <button
               onClick={() => setShowPlayer(false)}
-              className="absolute top-44 sm:top-20 right-6 sm:right-10 text-white text-5xl hover:text-blush z-50"
-
+              className="absolute top-6 sm:top-8 right-6 sm:right-10 text-white text-4xl sm:text-5xl hover:text-blush z-50"
               aria-label="Close"
             >
               ×

@@ -165,9 +165,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div>
 
-        </div>
         <div className="mt-8 pt-8 text-center text-antique/60">
           <div className="mt-2 space-y-2 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row justify-center items-center">
             <Link href="/privacy" className="hover:text-blush transition-colors">
