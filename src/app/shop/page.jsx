@@ -153,17 +153,44 @@ export default function ShopPage() {
             Buy direct from the distillery
           </span>
 
-          <button
-            onClick={handleBuyNow}
-            disabled={!isInStock || quantity < 1}
-            className={`px-10 py-3 rounded-lg transition-all duration-200 font-title text-base sm:text-lg lg:text-xl uppercase tracking-wider shadow-lg w-full sm:w-auto ${
-              isInStock && quantity > 0
-                ? 'bg-nautical text-antique hover:bg-blush hover:text-nautical hover:scale-[1.02]'
-                : 'bg-gray-400 text-gray-700 cursor-not-allowed'
-            }`}
-          >
-            {isInStock ? 'Buy Now' : 'Sold Out'}
-          </button>
+          <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+            {/* Quantity Selector UI */}
+            {isInStock && (
+              <div className="flex items-center border-2 border-nautical rounded-lg bg-antique/20 overflow-hidden">
+                <button
+                  onClick={handleDecreaseQuantity}
+                  disabled={quantity <= 1}
+                  className="px-4 py-3 text-antique hover:bg-nautical hover:text-antique transition-colors text-lg font-bold disabled:opacity-40 disabled:cursor-not-allowed"
+                  aria-label="Decrease quantity"
+                >
+                  −
+                </button>
+                <span className="px-4 py-3 font-title text-xl text-antique min-w-[3rem] text-center select-none">
+                  {quantity}
+                </span>
+                <button
+                  onClick={handleIncreaseQuantity}
+                  disabled={quantity >= product.stock_quantity}
+                  className="px-4 py-3 text-antique hover:bg-nautical hover:text-antique transition-colors text-lg font-bold disabled:opacity-40 disabled:cursor-not-allowed"
+                  aria-label="Increase quantity"
+                >
+                  +
+                </button>
+              </div>
+            )}
+
+            <button
+              onClick={handleBuyNow}
+              disabled={!isInStock || quantity < 1}
+              className={`px-10 py-3 rounded-lg transition-all duration-200 font-title text-base sm:text-lg lg:text-xl uppercase tracking-wider shadow-lg w-full sm:w-auto ${
+                isInStock && quantity > 0
+                  ? 'bg-nautical text-antique hover:bg-blush hover:text-nautical hover:scale-[1.02]'
+                  : 'bg-gray-400 text-gray-700 cursor-not-allowed'
+              }`}
+            >
+              {isInStock ? 'Buy Now' : 'Sold Out'}
+            </button>
+          </div>
         </div>
 
 

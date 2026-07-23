@@ -19,8 +19,8 @@ export default function Navbar() {
 
         <div className="max-w-6xl mx-auto flex justify-between items-center relative z-10">
           {/* Logo */}
-          <a href="/" className="flex items-center space-x-2">
-            <img src="/images/Juke_Blue_Beige.jpeg" alt="Logo" className="w-10 h-13" />
+          <a href="/" className="flex items-center space-x-2" aria-label="Juke Blue Homepage">
+            <img src="/images/Juke_Blue_Beige.jpeg" alt="Logo" className="w-10 h-12" />
             <img src="/images/logoname.jpeg" alt="Juke Blue Text" className="h-8 w-auto" />
           </a>
 
