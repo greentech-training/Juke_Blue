@@ -28,7 +28,7 @@ const bars = [
     address: "Boddinstraße 61, 12053 Berlin-Bezirk Neukölln",
     coordinates: [52.480710, 13.433229],
     type: "Stockist",
-    description: "Take a shot of the Juke at Piri's bar",
+    description: "Take a shot of the Juke at Piri's bar.",
     image: "/images/piris-bar.jpeg",
   },
   {
@@ -37,7 +37,7 @@ const bars = [
     address: "Mariannenstraße 27, 10999 Berlin-Bezirk Friedrichshain-Kreuzberg",
     coordinates: [52.5000, 13.4210],
     type: "Signature cocktail",
-    description: "Taste the Morning Sun here",
+    description: "Taste the Morning Sun here.",
     image: "/images/cake_bar.webp",
   },
   {
@@ -64,7 +64,7 @@ const bars = [
     address: "Weserstr. 16, 12047 Berlin",
     coordinates: [52.4828, 13.4357],
     type: "Signature cocktail",
-    description: "Get yourself on the Silent Freeways here",
+    description: "Get yourself on the Silent Freeways here.",
     image: "/images/la_brezza.webp",
   },
   {
@@ -125,7 +125,10 @@ export default function MapPage() {
 
   return (
     <div className="min-h-screen flex flex-col items-center py-16 px-4 relative">
-      <div className="absolute inset-0 bg-grain bg-cover bg-center opacity-20 z-0" />
+      {/* Local grain overlay — intentionally inactive. Original code had a typo (bg-grainz) so it never rendered.
+          The site-wide grain in layout.js already covers this page. Uncomment and fix to 'bg-grain' if a
+          stronger local grain effect is ever needed here. */}
+      {/* <div className="absolute inset-0 bg-grain bg-cover bg-center opacity-20 z-0" /> */}
 
       {/* Decorative frame container */}
       <div className="relative w-full max-w-[1050px] mx-auto mb-8 sm:mb-14 lg:mb-20 mt-16 sm:mt-20 lg:mt-24 aspect-[1.6/1] lg:aspect-[1.9/1]">
