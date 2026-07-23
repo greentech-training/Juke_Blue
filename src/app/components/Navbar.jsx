@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,19 +21,31 @@ export default function Navbar() {
 
         <div className="max-w-6xl mx-auto flex justify-between items-center relative z-10">
           {/* Logo */}
-          <a href="/" className="flex items-center space-x-2" aria-label="Juke Blue Homepage">
-            <img src="/images/Juke_Blue_Beige.jpeg" alt="Logo" className="w-10 h-12" />
-            <img src="/images/logoname.jpeg" alt="Juke Blue Text" className="h-8 w-auto" />
-          </a>
+          <Link href="/" className="flex items-center space-x-2" aria-label="Juke Blue Homepage">
+            <Image
+              src="/images/Juke_Blue_Beige.jpeg"
+              alt="Logo"
+              width={40}
+              height={48}
+              className="w-10 h-12"
+              priority
+            />
+            <Image
+              src="/images/logoname.jpeg"
+              alt="Juke Blue Text"
+              width={160}
+              height={32}
+              className="h-8 w-auto"
+              priority
+            />
+          </Link>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex space-x-6">
-            <a href="/shop" className="text-antique hover:text-blush">SHOP</a>
-            <a href="/cocktails" className="text-antique hover:text-blush">COCKTAILS</a>
-            {/* <a href="/songbook" className="text-antique hover:text-blush">SONGBOOK</a> */}
-            <a href="/tunes" className="text-antique hover:text-blush">TUNES</a>
-            {/* <a href="/map" className="text-antique hover:text-blush">MAP</a> */}
-            <a href="/taverns" className="text-antique hover:text-blush">TAVERNS</a>
+            <Link href="/shop" className="text-antique hover:text-blush">SHOP</Link>
+            <Link href="/cocktails" className="text-antique hover:text-blush">COCKTAILS</Link>
+            <Link href="/tunes" className="text-antique hover:text-blush">TUNES</Link>
+            <Link href="/taverns" className="text-antique hover:text-blush">TAVERNS</Link>
           </div>
 
           {/* Mobile menu button */}
@@ -69,20 +83,21 @@ export default function Navbar() {
           ${isOpen ? "translate-y-0 opacity-100" : "-translate-y-5 opacity-0 pointer-events-none"}
         `}
       >
-        <a href="/shop" className="block text-antique hover:text-blush" onClick={() => setIsOpen(false)}>
+        <Link href="/shop" className="block text-antique hover:text-blush" onClick={() => setIsOpen(false)}>
           SHOP
-        </a>
-        <a href="/cocktails" className="block text-antique hover:text-blush" onClick={() => setIsOpen(false)}>
+        </Link>
+        <Link href="/cocktails" className="block text-antique hover:text-blush" onClick={() => setIsOpen(false)}>
           COCKTAILS
-        </a>
-        <a href="/tunes" className="block text-antique hover:text-blush" onClick={() => setIsOpen(false)}>
+        </Link>
+        <Link href="/tunes" className="block text-antique hover:text-blush" onClick={() => setIsOpen(false)}>
           TUNES
-        </a>
-        <a href="/taverns" className="block text-antique hover:text-blush" onClick={() => setIsOpen(false)}>
+        </Link>
+        <Link href="/taverns" className="block text-antique hover:text-blush" onClick={() => setIsOpen(false)}>
           TAVERNS
-        </a>
+        </Link>
       </div>
     </>
   );
 }
+
 
