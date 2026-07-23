@@ -19,14 +19,12 @@ function MapRecenter({ center, activeBarId, markerRefs }) {
   const map = useMap();
 
   useEffect(() => {
-    if (!map || !center) return;
+    if (!map || !center || !activeBarId) return;
 
     map.flyTo(center, map.getZoom(), {
       duration: 1.2,
       easeLinearity: 0.25,
     });
-
-    if (!activeBarId) return;
 
     // Direct O(1) lookup via ref — no layer scanning needed
     const handleMoveEnd = () => {

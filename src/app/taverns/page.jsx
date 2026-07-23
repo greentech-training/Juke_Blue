@@ -150,10 +150,10 @@ export default function MapPage() {
             {bars.map((bar) => (
               <li
                 key={bar.id}
-                className={`bg-antique p-4 rounded-lg mb-4 cursor-pointer transition-all duration-300 border ${
+                className={`p-4 rounded-lg mb-4 cursor-pointer transition-all duration-300 border-l-4 border ${
                   activeBarId === bar.id
-                    ? 'border-nautical bg-[rgba(198,140,175,0.7)]'
-                    : 'border-nautical hover:bg-[rgba(198,140,175,0.7)]'
+                    ? 'bg-blush/50 border-l-nautical border-nautical'
+                    : 'bg-antique border-l-transparent border-nautical hover:bg-[rgba(198,140,175,0.4)]'
                 }`}
                 onClick={() => setActiveBarId(bar.id)}
               >

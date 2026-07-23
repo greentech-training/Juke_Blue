@@ -34,13 +34,13 @@ export default function NavGrid() {
           className="group relative block w-full rounded-xl overflow-hidden bg-transparent border-none
                     transition-transform duration-300 hover:scale-105 flex flex-col"
         >
-          <div className="relative w-full aspect-[1.5/1] overflow-hidden rounded-xl">
+          <div className="relative w-full h-full flex-grow overflow-hidden rounded-xl">
             <Image
               src={link.image}
               alt={link.title}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover transition-transform duration-300 opacity-100"
+              width={500}
+              height={600}
+              className="w-full h-full object-cover transition-transform duration-300 opacity-100"
             />
           </div>
         </Link>

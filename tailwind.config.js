@@ -24,7 +24,7 @@ module.exports = {
       },
       backgroundImage: {
         grain:   "url('/images/sand-background.webp')",
-        backgroundImage: "url('/images/vector-background.png')",
+        backgroundImage: "url('/images/vector-background.jpeg')",
       },
       // Text shadows
       textShadow: {
