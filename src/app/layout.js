@@ -30,6 +30,12 @@ export default function RootLayout({ children }) {
       <head>
         <link
           rel="preload"
+          href="/images/sand-background.webp"
+          as="image"
+          type="image/webp"
+        />
+        <link
+          rel="preload"
           href="/images/vector-background.png"
           as="image"
         />
