@@ -19,8 +19,25 @@ const rye = Rye({
 });
 
 export const metadata = {
-  title: "Juke Blue",
-  description: "Experience the deep and captivating essence of Double Blue Spirit, meticulously crafted for a smooth and memorable finish.",
+  metadataBase: new URL('https://jukeblue.com'),
+  title: {
+    default: "Juke Blue | Premium Spirits Forged by the Sea",
+    template: "%s | Juke Blue",
+  },
+  description: "Experience the deep and captivating essence of Double Blue Spirit, meticulously crafted in Germany for a smooth and memorable finish.",
+  openGraph: {
+    title: "Juke Blue | Premium Spirits Forged by the Sea",
+    description: "Experience the deep and captivating essence of Double Blue Spirit, meticulously crafted in Germany for a smooth and memorable finish.",
+    url: "https://jukeblue.com",
+    siteName: "Juke Blue",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Juke Blue | Premium Spirits Forged by the Sea",
+    description: "Experience the deep and captivating essence of Double Blue Spirit, meticulously crafted in Germany for a smooth and memorable finish.",
+  },
 };
 
 export default function RootLayout({ children }) {

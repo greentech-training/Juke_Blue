@@ -80,7 +80,7 @@ const bars = [
     id: 8,
     name: "Silent Jazz Bar",
     address: "Naumannstraße 3, 10829 Berlin",
-    coordinates: [52.482, 13.352],
+    coordinates: [52.4824, 13.3596],
     type: "Stockist",
     description: "Listen to live tunes on headphones with the Juke here.",
     image: "/images/silent_jazz_bar.webp",

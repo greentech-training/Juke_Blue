@@ -24,7 +24,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center space-x-2" aria-label="Juke Blue Homepage">
             <Image
               src="/images/Juke_Blue_Beige.jpeg"
-              alt="Logo"
+              alt="Juke Blue Logo"
               width={40}
               height={48}
               className="w-10 h-12"
@@ -32,7 +32,7 @@ export default function Navbar() {
             />
             <Image
               src="/images/logoname.jpeg"
-              alt="Juke Blue Text"
+              alt=""
               width={160}
               height={32}
               className="h-8 w-auto"

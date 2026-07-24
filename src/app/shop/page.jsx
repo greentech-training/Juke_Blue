@@ -58,10 +58,8 @@ export default function ShopPage() {
       return;
     }
     
-    // Redirect to distillery with quantity pre-filled in the URL
-    const distilleryUrl = new URL(product.distillery_url);
-    distilleryUrl.searchParams.set('quantity', quantity);
-    window.location.href = distilleryUrl.toString();
+    // Redirect directly to Dwersteg checkout
+    window.location.href = "https://dwersteg.de/checkouts/cn/hWNEr2ZCggiFPHSJJRXVomW3/de-de?_r=AQAB2d_wbkWO4H-_AfO4dDgixNU8v_81MvihX-aWawytkI4";
   };
 
   if (loading) {
