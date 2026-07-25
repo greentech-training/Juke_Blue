@@ -78,21 +78,25 @@ export default function Navbar() {
         className={`
           fixed top-16 left-0 right-0 z-50 md:hidden
           bg-nautical/95 backdrop-blur-sm
+          border-t border-antique shadow-2xl
           transition-all duration-500 ease-in-out
           transform px-6 py-6 space-y-4
           ${isOpen ? "translate-y-0 opacity-100" : "-translate-y-5 opacity-0 pointer-events-none"}
         `}
       >
-        <Link href="/shop" className="block text-antique hover:text-blush" onClick={() => setIsOpen(false)}>
+        <Link href="/shop" className="block text-antique hover:text-blush font-title tracking-wider text-lg" onClick={() => setIsOpen(false)}>
           SHOP
         </Link>
-        <Link href="/cocktails" className="block text-antique hover:text-blush" onClick={() => setIsOpen(false)}>
+        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-antique/40 to-transparent" />
+        <Link href="/cocktails" className="block text-antique hover:text-blush font-title tracking-wider text-lg" onClick={() => setIsOpen(false)}>
           COCKTAILS
         </Link>
-        <Link href="/tunes" className="block text-antique hover:text-blush" onClick={() => setIsOpen(false)}>
+        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-antique/40 to-transparent" />
+        <Link href="/tunes" className="block text-antique hover:text-blush font-title tracking-wider text-lg" onClick={() => setIsOpen(false)}>
           TUNES
         </Link>
-        <Link href="/taverns" className="block text-antique hover:text-blush" onClick={() => setIsOpen(false)}>
+        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-antique/40 to-transparent" />
+        <Link href="/taverns" className="block text-antique hover:text-blush font-title tracking-wider text-lg" onClick={() => setIsOpen(false)}>
           TAVERNS
         </Link>
       </div>
