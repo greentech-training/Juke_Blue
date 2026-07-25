@@ -56,6 +56,12 @@ export default function RootLayout({ children }) {
           href="/images/vector-background.jpeg"
           as="image"
         />
+        <link
+          rel="preload"
+          href="/videos/On a mission from God Preview.mp4"
+          as="video"
+          type="video/mp4"
+        />
       </head>
       <body className="h-full min-h-screen bg-blush relative">
 

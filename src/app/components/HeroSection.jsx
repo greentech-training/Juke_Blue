@@ -102,10 +102,12 @@ export default function HeroSection({
         {useNativeVideo && (previewClip.includes('.mp4') || previewClip.includes('b-cdn.net')) ? (
           <video
             src={previewClip}
+            poster="/images/video-poster.jpg"
             autoPlay
             loop
             muted
             playsInline
+            preload="auto"
             onError={() => setUseNativeVideo(false)}
             className="w-full h-full object-cover pointer-events-none"
           />
