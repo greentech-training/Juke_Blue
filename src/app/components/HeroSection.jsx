@@ -171,28 +171,22 @@ export default function HeroSection({
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border-2 border-antique/40 bg-black">
-
-                {/* The actual video player */}
                 <iframe
                   key="bunny-player-modal"
-                  src={fullVideo.includes('primaryColor') ? fullVideo : `${fullVideo}&primaryColor=c68caf`}
+                  src={fullVideo}
                   frameBorder="0"
                   allow="autoplay; fullscreen; picture-in-picture; encrypted-media; web-share"
                   style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
                   title="Bunny Stream Video Player"
                   allowFullScreen
                 />
-
-                {/* BLACK COVER — sits on top of iframe, fades away after 1.5s so Bunny player
-                    UI initializes completely underneath without flashing at the user */}
+                {/* BLACK COVER — hides Bunny player UI during initialization, fades away after 2s */}
                 <div
                   className="absolute inset-0 z-20 bg-black pointer-events-none transition-opacity duration-500 ease-in-out flex items-center justify-center"
                   style={{ opacity: coverVisible ? 1 : 0 }}
                 >
-                  {/* Spinner shown while waiting for video player to init */}
                   <div className="w-10 h-10 border-4 border-antique/30 border-t-blush rounded-full animate-spin" />
                 </div>
-
               </div>
             </motion.div>
           </motion.div>
