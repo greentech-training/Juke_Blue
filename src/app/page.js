@@ -7,8 +7,8 @@ export default function Home() {
     /* make sure this wrapper is above backgrounds */
     <div className="relative z-10">
       <HeroSection
-        previewClip="https://www.youtube.com/embed/Ccnw7chc56Q"
-        fullVideo="https://www.youtube.com/embed/wH1c22sLtx0"
+        previewClip="https://iframe.mediadelivery.net/embed/712893/44356277-56de-406a-a047-de51baab52ab?autoplay=true&loop=true&muted=true&preload=true"
+        fullVideo="https://iframe.mediadelivery.net/embed/712893/d0b939b6-7a8b-4117-b7d2-4736c2021d08?autoplay=true&loop=false&muted=false&preload=true&primaryColor=c68caf"
         title=""
         description="Juke Blue's Double Blue instills the holy essence of nature into every blessed drop.
           Its secret was revealed as he stood destitute on the shores of the Aegean Sea."

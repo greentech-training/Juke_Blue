@@ -1,261 +1,6 @@
-// "use client";
-// import React, { useState, useRef, useEffect } from 'react';
-// import { motion, AnimatePresence } from 'framer-motion';
-
-// export default function HeroSection({
-//   previewClip,   // teaser video
-//   fullVideo,     // full video with sound
-//   title,         // heading
-//   description,   // paragraph text
-//   buttonText     // CTA button
-// }) {
-//   const [showPlayer, setShowPlayer] = useState(false);
-//   const [readyToPlay, setReadyToPlay] = useState(false);
-//   const clipRef = useRef(null);
-//   const playerRef = useRef(null);
-
-//   useEffect(() => {
-//     clipRef.current?.play();
-//   }, []);
-
-//   useEffect(() => {
-//     document.body.style.overflow = showPlayer ? 'hidden' : '';
-//     return () => { document.body.style.overflow = ''; };
-//   }, [showPlayer]);
-
-//   const handleShowPlayer = () => {
-//     setShowPlayer(true);
-//     setReadyToPlay(true);
-//   };
-
-//   const handlePlay = () => {
-//     if (playerRef.current) {
-//       playerRef.current.muted = false;
-//       playerRef.current.play();
-//     }
-//   };
-
-//   return (
-//     <section className="relative min-h-screen overflow-hidden">
-//       <video
-//         ref={clipRef}
-//         autoPlay
-//         muted
-//         loop
-//         className="absolute inset-0 -z-30 w-full h-full object-cover brightness-75"
-//       >
-//         <source src={previewClip} type="video/mp4" />
-//       </video>
-
-//       <div className="relative z-10 px-4 max-w-4xl mx-auto py-16 flex flex-col justify-center items-center min-h-screen text-center">
-//         <p className="font-title text-xl md:text-3xl text-antique mb-6 leading-relaxed">
-//           {description}
-//         </p>
-//         <button
-//           onClick={handleShowPlayer}
-//           className="mt-6 px-8 py-3 text-lg bg-antique text-nautical border-2 border-nautical rounded-lg font-title shadow-md hover:bg-blush transition-all duration-200"
-//         >
-//           {buttonText}
-//         </button>
-//       </div>
-
-//       <AnimatePresence>
-//         {showPlayer && (
-//           <motion.div
-//             className="fixed inset-0 z-50 bg-black bg-opacity-90 flex justify-center items-center"
-//             initial={{ opacity: 0 }}
-//             animate={{ opacity: 1 }}
-//             exit={{ opacity: 0 }}
-//           >
-//             <motion.video
-//               ref={playerRef}
-//               controls
-//               className="absolute inset-0 w-full h-full object-cover"
-//               initial={{ scale: 0.8 }}
-//               animate={{ scale: 1 }}
-//               exit={{ scale: 0.8 }}
-//               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-//               onCanPlay={() => readyToPlay && handlePlay()}
-//             >
-//               <source src={fullVideo} type="video/mp4" />
-//             </motion.video>
-
-//             {!readyToPlay && (
-//               <button
-//                 onClick={handlePlay}
-//                 className="absolute z-50 text-white text-6xl"
-//                 aria-label="Play video with sound"
-//               >
-//                 ▶
-//               </button>
-//             )}
-
-//             <button
-//               onClick={() => setShowPlayer(false)}
-//               className="absolute top-20 right-4 text-white text-3xl hover:text-blush"
-//               aria-label="Close"
-//             >
-//               ×
-//             </button>
-//           </motion.div>
-//         )}
-//       </AnimatePresence>
-
-//       {/* Optional gold underline */}
-//       <div
-//         className="absolute bottom-0 left-0 w-full h-[2px] z-30 pointer-events-none"
-//         style={{
-//           backgroundImage: 'linear-gradient(to right, #f5e7c4, #d6b97b, #f5e7c4)',
-//           boxShadow: '0 0 4px 2px rgba(245, 231, 196, 0.3)',
-//           opacity: 0.8,
-//         }}
-//       />
-//     </section>
-//   );
-// }
-
-
-// "use client";
-// import React, { useState, useRef, useEffect } from 'react';
-// import { motion, AnimatePresence } from 'framer-motion';
-// // import Image from 'next/image'; // Only uncomment if you decide to use a static image for the background
-
-// export default function HeroSection({
-//   previewClip,   // This will now be your Vimeo embed URL for the preview
-//   fullVideo,     // This will now be your Vimeo embed URL for the full player
-//   title,
-//   description,
-//   buttonText
-// }) {
-//   const [showPlayer, setShowPlayer] = useState(false);
-//   const [readyToPlay, setReadyToPlay] = useState(false);
-
-//   const clipRef = useRef(null); // Ref for the preview video container
-//   const playerRef = useRef(null); // Ref for the full video player container
-
-//   // For Vimeo preview, autoplay is handled by the iframe src parameters
-//   // No need for a separate useEffect to call .play() on Vimeo iframes
-
-//   // Effect to control body scroll when player is shown
-//   useEffect(() => {
-//     document.body.style.overflow = showPlayer ? 'hidden' : '';
-//     return () => { document.body.style.overflow = ''; };
-//   }, [showPlayer]);
-
-//   const handleShowPlayer = () => {
-//     setShowPlayer(true);
-//     setReadyToPlay(true); // For Vimeo, we assume it's ready once the iframe loads
-//   };
-
-//   // No separate handlePlay needed for Vimeo as autoplay is in the URL
-
-//   return (
-//     // Set to h-screen for full viewport height
-//     <section className="relative h-screen overflow-hidden">
-//       {/* PREVIEW BACKGROUND VIDEO (Vimeo iframe) */}
-//       <div
-//         ref={clipRef}
-//         className="absolute inset-0 -z-30 w-full h-full brightness-75 overflow-hidden"
-//         // Applying a slight transform to emulate object-cover behavior for iframe
-//         // You might still need to fine-tune this for perfect alignment with the gold line
-//         style={{
-//           position: 'absolute',
-//           top: '50%',
-//           left: '50%',
-//           width: '100%',
-//           height: '100%',
-//           transform: 'translate(-50%, -50%) scale(1.1)' // Adjust scale as needed
-//         }}
-//       >
-//         <iframe
-//           src={`${previewClip}?autoplay=1&loop=1&muted=1&background=1&playsinline=1`}
-//           frameBorder="0"
-//           allow="autoplay; fullscreen; picture-in-picture"
-//           style={{
-//             position: 'absolute',
-//             top: '50%',
-//             left: '50%',
-//             minWidth: '100%',
-//             minHeight: '100%',
-//             width: 'auto',
-//             height: 'auto',
-//             transform: 'translate(-50%, -50%)',
-//             pointerEvents: 'none', // Prevent interaction with background video
-//           }}
-//           title="Vimeo Preview Background"
-//           loading="eager" // Load this quickly as it's the background
-//         ></iframe>
-//       </div>
-
-//       {/* Hero Content */}
-//       <div className="relative z-10 px-4 max-w-4xl mx-auto py-16 flex flex-col justify-center items-center min-h-screen text-center">
-//         <p className="font-title text-xl md:text-3xl text-antique mb-6 leading-relaxed">
-//           {description}
-//         </p>
-//         <button
-//           onClick={handleShowPlayer}
-//           className="mt-6 px-8 py-3 text-lg bg-antique text-nautical border-2 border-nautical rounded-lg font-title shadow-md hover:bg-blush transition-all duration-200"
-//         >
-//           {buttonText}
-//         </button>
-//       </div>
-
-//       {/* Full Screen Video Player Overlay (Vimeo iframe) */}
-//       <AnimatePresence>
-//         {showPlayer && (
-//           <motion.div
-//             className="fixed inset-0 z-50 bg-black bg-opacity-90 flex justify-center items-center"
-//             initial={{ opacity: 0 }}
-//             animate={{ opacity: 1 }}
-//             exit={{ opacity: 0 }}
-//           >
-//             <motion.div
-//               ref={playerRef} // Ref on the container div for Vimeo
-//               className="w-full h-full relative flex items-center justify-center"
-//               initial={{ scale: 0.8 }}
-//               animate={{ scale: 1 }}
-//               exit={{ scale: 0.8 }}
-//               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-//             >
-//               {/* Aspect ratio box for responsive Vimeo iframe */}
-//               <div className="relative w-full h-full" style={{paddingBottom: '56.25%', height: 'auto', overflow: 'hidden'}}>
-//                 <iframe
-//                   src={`${fullVideo}?autoplay=1&badge=0&autopause=0&player_id=0&app_id=58479&muted=0`}
-//                   frameBorder="0"
-//                   allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-//                   style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%'}}
-//                   title="Vimeo Video Player"
-//                   allowFullScreen
-//                 ></iframe>
-//               </div>
-//             </motion.div>
-
-//             {/* No separate play button needed for Vimeo if autoplay is in URL */}
-
-//             {/* Close button */}
-//             <button
-//               onClick={() => setShowPlayer(false)}
-//               className="absolute top-20 right-20 right-4 text-white text-3xl hover:text-blush z-50"
-//               aria-label="Close"
-//             >
-//               ×
-//             </button>
-//           </motion.div>
-//         )}
-//       </AnimatePresence>
-
-//       {/* Optional gold underline */}
-//       <div
-
 'use client';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-function getVideoId(url) {
-  // Extract video ID from youtube.com/embed/VIDEO_ID
-  const parts = url.split('/');
-  return parts[parts.length - 1];
-}
 
 export default function HeroSection({
   previewClip,
@@ -265,22 +10,36 @@ export default function HeroSection({
   buttonText
 }) {
   const [showPlayer, setShowPlayer] = useState(false);
+  // Controls the black cover over the modal iframe — stays opaque until Bunny player finishes init
+  const [coverVisible, setCoverVisible] = useState(true);
+  const [useNativeVideo, setUseNativeVideo] = useState(true);
   const [iframeStyles, setIframeStyles] = useState({
     position: 'absolute',
     top: '50%',
     left: '50%',
     width: '100%',
     height: '100%',
-    transform: 'translate(-50%, -50%) scale(1.15)',
+    transform: 'translate(-50%, -50%)',
     pointerEvents: 'none',
     opacity: 0,
   });
   const clipRef = useRef(null);
-  const playerRef = useRef(null);
+  const coverTimerRef = useRef(null);
 
-  const videoId = getVideoId(fullVideo);
+  const handleOpenPlayer = () => {
+    setCoverVisible(true); // black cover on before iframe even mounts
+    setShowPlayer(true);
+    // Wait 1.5s — Bunny player fully initializes beneath the cover, then fade it away
+    coverTimerRef.current = setTimeout(() => {
+      setCoverVisible(false);
+    }, 2000);
+  };
 
-
+  const handleClosePlayer = () => {
+    setShowPlayer(false);
+    setCoverVisible(true);
+    if (coverTimerRef.current) clearTimeout(coverTimerRef.current);
+  };
 
   // Calculates iframe dimensions to fill container while maintaining 16:9 ratio
   const applyCoverStyles = useCallback(() => {
@@ -319,11 +78,19 @@ export default function HeroSection({
     return () => window.removeEventListener('resize', applyCoverStyles);
   }, [applyCoverStyles]);
 
-  // Locks body scroll when overlay is open
+  // Handle Escape key to close modal
   useEffect(() => {
-    document.body.style.overflow = showPlayer ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && showPlayer) handleClosePlayer();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [showPlayer]);
+
+  // Clean up timer on unmount
+  useEffect(() => {
+    return () => { if (coverTimerRef.current) clearTimeout(coverTimerRef.current); };
+  }, []);
 
   return (
     <section className="relative h-screen overflow-hidden">
@@ -332,20 +99,31 @@ export default function HeroSection({
         ref={clipRef}
         className="absolute inset-0 -z-30 w-full h-full brightness-75 overflow-hidden pointer-events-none"
       >
-        <iframe
-          tabIndex={-1}
-          src={`https://www.youtube.com/embed/${getVideoId(previewClip)}?autoplay=1&mute=1&loop=1&controls=0&playlist=${getVideoId(previewClip)}&modestbranding=1&rel=0&showinfo=0&playsinline=1&iv_load_policy=3&disablekb=1`}
-          frameBorder="0"
-          allow="autoplay; fullscreen"
-          style={{
-            ...iframeStyles,
-            transform: `${iframeStyles.transform || 'translate(-50%, -50%)'} scale(1.15)`,
-            pointerEvents: 'none',
-          }}
-          title="YouTube Preview Background"
-          loading="eager"
-        />
-        {/* Transparent glass overlay to absorb click/touch events and prevent player interaction */}
+        {useNativeVideo && (previewClip.includes('.mp4') || previewClip.includes('b-cdn.net')) ? (
+          <video
+            src={previewClip}
+            autoPlay
+            loop
+            muted
+            playsInline
+            onError={() => setUseNativeVideo(false)}
+            className="w-full h-full object-cover pointer-events-none"
+          />
+        ) : (
+          <iframe
+            tabIndex={-1}
+            src={previewClip}
+            frameBorder="0"
+            allow="autoplay; fullscreen"
+            style={{
+              ...iframeStyles,
+              pointerEvents: 'none',
+            }}
+            title="Bunny Stream Preview Background"
+            loading="eager"
+          />
+        )}
+        {/* Transparent overlay to block click/touch events on the iframe */}
         <div className="absolute inset-0 z-10 bg-transparent pointer-events-none" />
       </div>
 
@@ -355,7 +133,7 @@ export default function HeroSection({
           {description}
         </p>
         <button
-          onClick={() => setShowPlayer(true)}
+          onClick={handleOpenPlayer}
           className="mt-6 px-8 py-3 text-lg bg-antique text-nautical border-2 border-nautical rounded-lg font-title shadow-md hover:bg-blush transition-all duration-200"
         >
           {buttonText}
@@ -366,38 +144,57 @@ export default function HeroSection({
       <AnimatePresence>
         {showPlayer && (
           <motion.div
-            className="fixed inset-0 z-50 bg-black bg-opacity-90 flex justify-center items-center"
+            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex justify-center items-center p-4 sm:p-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            onClick={handleClosePlayer}
           >
+            {/* Close button */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleClosePlayer();
+              }}
+              className="absolute top-4 right-4 sm:top-6 sm:right-8 text-antique bg-nautical/80 border-2 border-antique hover:bg-blush hover:text-nautical w-12 h-12 rounded-full flex items-center justify-center text-3xl font-bold transition-all shadow-xl z-[110]"
+              aria-label="Close video"
+            >
+              ×
+            </button>
+
             <motion.div
-              ref={playerRef}
-              className="w-full h-full relative flex items-center justify-center"
+              className="w-full max-w-5xl relative"
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.8 }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative w-full h-full" style={{ paddingBottom: '56.25%', height: 'auto', overflow: 'hidden' }}>
+              <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border-2 border-antique/40 bg-black">
+
+                {/* The actual video player */}
                 <iframe
-                  src={`https://www.youtube.com/embed/${videoId}?enablejsapi=1&modestbranding=1&rel=0&controls=1&autoplay=1`}
+                  key="bunny-player-modal"
+                  src={fullVideo.includes('primaryColor') ? fullVideo : `${fullVideo}&primaryColor=c68caf`}
                   frameBorder="0"
-                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                  allow="autoplay; fullscreen; picture-in-picture; encrypted-media; web-share"
                   style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-                  title="YouTube Video Player"
+                  title="Bunny Stream Video Player"
                   allowFullScreen
                 />
+
+                {/* BLACK COVER — sits on top of iframe, fades away after 1.5s so Bunny player
+                    UI initializes completely underneath without flashing at the user */}
+                <div
+                  className="absolute inset-0 z-20 bg-black pointer-events-none transition-opacity duration-500 ease-in-out flex items-center justify-center"
+                  style={{ opacity: coverVisible ? 1 : 0 }}
+                >
+                  {/* Spinner shown while waiting for video player to init */}
+                  <div className="w-10 h-10 border-4 border-antique/30 border-t-blush rounded-full animate-spin" />
+                </div>
+
               </div>
             </motion.div>
-
-            <button
-              onClick={() => setShowPlayer(false)}
-              className="absolute top-6 sm:top-8 right-6 sm:right-10 text-white text-4xl sm:text-5xl hover:text-blush z-50"
-              aria-label="Close"
-            >
-              ×
-            </button>
           </motion.div>
         )}
       </AnimatePresence>
@@ -409,7 +206,6 @@ export default function HeroSection({
           backgroundImage: 'linear-gradient(to right, #f5e7c4, #d6b97b, #f5e7c4)',
           boxShadow: '0 0 4px 2px rgba(245, 231, 196, 0.3)',
           opacity: 0.8,
-        //bottom: '-3px',
         }}
       />
     </section>
