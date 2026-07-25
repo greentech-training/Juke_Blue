@@ -97,7 +97,7 @@ export default function HeroSection({
       {/* Background Preview Video */}
       <div
         ref={clipRef}
-        className="absolute inset-0 -z-30 w-full h-full brightness-75 overflow-hidden pointer-events-none"
+        className="absolute inset-0 -z-30 w-full h-full bg-black brightness-75 overflow-hidden pointer-events-none"
       >
         {useNativeVideo && (previewClip.includes('.mp4') || previewClip.includes('b-cdn.net')) ? (
           <video
