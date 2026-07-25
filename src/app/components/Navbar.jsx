@@ -35,6 +35,7 @@ export default function Navbar() {
               alt=""
               width={160}
               height={32}
+              style={{ width: 'auto' }}
               className="h-8 w-auto"
               priority
             />
@@ -63,6 +64,33 @@ export default function Navbar() {
             </svg>
           </button>
         </div>
+
+        {/* Mobile Menu dropdown — direct child of <nav> spanning full width */}
+        <div
+          className={`
+            absolute top-full left-0 right-0 z-50 md:hidden
+            bg-nautical/95 backdrop-blur-sm border-t border-antique/30 shadow-2xl
+            transition-all duration-500 ease-in-out
+            transform px-6 pt-5 pb-6 space-y-4
+            ${isOpen ? "translate-y-0 opacity-100" : "-translate-y-5 opacity-0 pointer-events-none"}
+          `}
+        >
+          <Link href="/shop" className="block text-antique hover:text-blush font-title tracking-wider text-lg" onClick={() => setIsOpen(false)}>
+            SHOP
+          </Link>
+          <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-antique/40 to-transparent" />
+          <Link href="/cocktails" className="block text-antique hover:text-blush font-title tracking-wider text-lg" onClick={() => setIsOpen(false)}>
+            COCKTAILS
+          </Link>
+          <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-antique/40 to-transparent" />
+          <Link href="/tunes" className="block text-antique hover:text-blush font-title tracking-wider text-lg" onClick={() => setIsOpen(false)}>
+            TUNES
+          </Link>
+          <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-antique/40 to-transparent" />
+          <Link href="/taverns" className="block text-antique hover:text-blush font-title tracking-wider text-lg" onClick={() => setIsOpen(false)}>
+            TAVERNS
+          </Link>
+        </div>
       </nav>
 
       {/* Overlay behind menu */}
@@ -72,34 +100,6 @@ export default function Navbar() {
         } z-40`}
         onClick={() => setIsOpen(false)}
       />
-
-      {/* Mobile Menu */}
-      <div
-        className={`
-          fixed top-16 left-0 right-0 z-50 md:hidden
-          bg-nautical/95 backdrop-blur-sm
-          border-t border-antique shadow-2xl
-          transition-all duration-500 ease-in-out
-          transform px-6 py-6 space-y-4
-          ${isOpen ? "translate-y-0 opacity-100" : "-translate-y-5 opacity-0 pointer-events-none"}
-        `}
-      >
-        <Link href="/shop" className="block text-antique hover:text-blush font-title tracking-wider text-lg" onClick={() => setIsOpen(false)}>
-          SHOP
-        </Link>
-        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-antique/40 to-transparent" />
-        <Link href="/cocktails" className="block text-antique hover:text-blush font-title tracking-wider text-lg" onClick={() => setIsOpen(false)}>
-          COCKTAILS
-        </Link>
-        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-antique/40 to-transparent" />
-        <Link href="/tunes" className="block text-antique hover:text-blush font-title tracking-wider text-lg" onClick={() => setIsOpen(false)}>
-          TUNES
-        </Link>
-        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-antique/40 to-transparent" />
-        <Link href="/taverns" className="block text-antique hover:text-blush font-title tracking-wider text-lg" onClick={() => setIsOpen(false)}>
-          TAVERNS
-        </Link>
-      </div>
     </>
   );
 }
