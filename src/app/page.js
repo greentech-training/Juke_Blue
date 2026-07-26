@@ -8,7 +8,7 @@ export default function Home() {
     <div className="relative z-10">
       <HeroSection
         previewClip="/videos/On a mission from God Preview.mp4"
-        fullVideo="https://iframe.mediadelivery.net/embed/712893/d0b939b6-7a8b-4117-b7d2-4736c2021d08?autoplay=true&loop=false&muted=false&preload=true&primaryColor=c68caf"
+        fullVideo="https://www.youtube.com/embed/bHOr2O0oOA8?autoplay=1"
         title=""
         description="Juke Blue's Double Blue instills the holy essence of Nature into every blessed drop.
           Its secret was revealed as he stood destitute on the shores of the Aegean Sea."
