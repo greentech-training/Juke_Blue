@@ -1,13 +1,28 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-// Custom Form Component for Brevo
+// Custom Form Component for Brevo with reCAPTCHA v3 (Invisible)
 const BrevoSubscribeForm = () => {
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [status, setStatus] = useState('idle'); // idle, sending, success, error
   const [message, setMessage] = useState('');
+
+  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+
+  useEffect(() => {
+    if (!siteKey) return;
+    // Load reCAPTCHA v3 script dynamically
+    const scriptId = 'recaptcha-v3-script';
+    if (!document.getElementById(scriptId)) {
+      const script = document.createElement('script');
+      script.id = scriptId;
+      script.src = `https://www.google.com/recaptcha/api.js?render=${siteKey}`;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, [siteKey]);
 
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
@@ -21,12 +36,30 @@ const BrevoSubscribeForm = () => {
     setStatus('sending');
 
     try {
+      let captchaToken = null;
+
+      if (window.grecaptcha && siteKey) {
+        captchaToken = await new Promise((resolve) => {
+          window.grecaptcha.ready(() => {
+            window.grecaptcha.execute(siteKey, { action: 'submit_newsletter' })
+              .then((token) => resolve(token))
+              .catch(() => resolve(null));
+          });
+        });
+      }
+
+      if (!captchaToken) {
+        setStatus('error');
+        setMessage('Security check failed. Please refresh and try again.');
+        return;
+      }
+
       const response = await fetch('/api/subscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, firstName }),
+        body: JSON.stringify({ email, firstName, captchaToken }),
       });
 
       const data = await response.json();

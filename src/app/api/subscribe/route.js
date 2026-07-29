@@ -1,7 +1,30 @@
 import { NextResponse } from 'next/server';
 
 export async function POST(request) {
-  const { email, firstName } = await request.json();
+  const { email, firstName, captchaToken } = await request.json();
+
+  if (!captchaToken) {
+    return NextResponse.json({ error: 'Please complete the reCAPTCHA verification.' }, { status: 400 });
+  }
+
+  // Verify reCAPTCHA token with Google API
+  try {
+    const recaptchaRes = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${captchaToken}`,
+    });
+
+    const recaptchaData = await recaptchaRes.json();
+    console.log('Google reCAPTCHA v3 verification result:', recaptchaData);
+
+    if (!recaptchaData.success) {
+      return NextResponse.json({ error: 'reCAPTCHA verification failed. Please try again.' }, { status: 400 });
+    }
+  } catch (captchaErr) {
+    console.error('reCAPTCHA validation error:', captchaErr);
+    return NextResponse.json({ error: 'Failed to verify reCAPTCHA.' }, { status: 500 });
+  }
 
   try {
     const payload = {
@@ -63,4 +86,4 @@ export async function POST(request) {
   } catch (error) {
     return NextResponse.json({ error: 'Failed to subscribe' }, { status: 500 });
   }
-}
+}
