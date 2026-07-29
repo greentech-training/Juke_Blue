@@ -9,7 +9,8 @@ const BrevoSubscribeForm = () => {
   const [status, setStatus] = useState('idle'); // idle, sending, success, error
   const [message, setMessage] = useState('');
 
-  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+  // reCAPTCHA v3 site key (public key - safe to hardcode)
+  const siteKey = '6LdCq2stAAAAACp6ZANhqMnQhUNiZks22ZJJzF9T';
 
   useEffect(() => {
     if (!siteKey) return;
