@@ -3,6 +3,11 @@ import { NextResponse } from 'next/server';
 export async function POST(request) {
   const { email, firstName, captchaToken } = await request.json();
 
+  // Diagnostic logging
+  console.log('--- reCAPTCHA Debug ---');
+  console.log('Token received:', captchaToken ? `YES (length: ${captchaToken.length}, starts: ${captchaToken.substring(0, 20)})` : 'NO TOKEN');
+  console.log('Secret key present:', process.env.RECAPTCHA_SECRET_KEY ? `YES (length: ${process.env.RECAPTCHA_SECRET_KEY.length})` : 'MISSING');
+
   if (!captchaToken) {
     return NextResponse.json({ error: 'Please complete the reCAPTCHA verification.' }, { status: 400 });
   }
