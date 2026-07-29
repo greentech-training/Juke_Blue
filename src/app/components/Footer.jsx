@@ -38,13 +38,22 @@ const BrevoSubscribeForm = () => {
     try {
       let captchaToken = null;
 
-      if (window.grecaptcha && siteKey) {
+      if (siteKey) {
         captchaToken = await new Promise((resolve) => {
-          window.grecaptcha.ready(() => {
-            window.grecaptcha.execute(siteKey, { action: 'submit_newsletter' })
-              .then((token) => resolve(token))
-              .catch(() => resolve(null));
-          });
+          const checkAndExecute = () => {
+            if (window.grecaptcha && window.grecaptcha.execute) {
+              window.grecaptcha.ready(() => {
+                window.grecaptcha.execute(siteKey, { action: 'submit_newsletter' })
+                  .then((token) => resolve(token))
+                  .catch(() => resolve(null));
+              });
+            } else {
+              setTimeout(checkAndExecute, 500);
+            }
+          };
+          checkAndExecute();
+          // Timeout after 4 seconds
+          setTimeout(() => resolve(null), 4000);
         });
       }
 
