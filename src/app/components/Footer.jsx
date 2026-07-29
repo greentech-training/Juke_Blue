@@ -59,7 +59,7 @@ const BrevoSubscribeForm = () => {
 
       if (!captchaToken) {
         setStatus('error');
-        setMessage('Security check failed. Please refresh and try again.');
+        setMessage(siteKey ? 'Security check failed. Please refresh and try again.' : 'reCAPTCHA configuration missing in environment variables.');
         return;
       }
 
