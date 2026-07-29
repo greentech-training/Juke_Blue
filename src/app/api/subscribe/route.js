@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+// Subscription API Route with reCAPTCHA v3 verification
 export async function POST(request) {
   const { email, firstName, captchaToken } = await request.json();
 
