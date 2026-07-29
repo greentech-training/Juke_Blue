@@ -10,8 +10,6 @@ export default function HeroSection({
   buttonText
 }) {
   const [showPlayer, setShowPlayer] = useState(false);
-  // Controls the black cover over the modal iframe — stays opaque until Bunny player finishes init
-  const [coverVisible, setCoverVisible] = useState(true);
   const [useNativeVideo, setUseNativeVideo] = useState(true);
   const [iframeStyles, setIframeStyles] = useState({
     position: 'absolute',
@@ -24,21 +22,13 @@ export default function HeroSection({
     opacity: 0,
   });
   const clipRef = useRef(null);
-  const coverTimerRef = useRef(null);
 
   const handleOpenPlayer = () => {
-    setCoverVisible(true); // black cover on before iframe even mounts
     setShowPlayer(true);
-    // Wait 1.5s — Bunny player fully initializes beneath the cover, then fade it away
-    coverTimerRef.current = setTimeout(() => {
-      setCoverVisible(false);
-    }, 2000);
   };
 
   const handleClosePlayer = () => {
     setShowPlayer(false);
-    setCoverVisible(true);
-    if (coverTimerRef.current) clearTimeout(coverTimerRef.current);
   };
 
   // Calculates iframe dimensions to fill container while maintaining 16:9 ratio
@@ -87,11 +77,6 @@ export default function HeroSection({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [showPlayer]);
 
-  // Clean up timer on unmount
-  useEffect(() => {
-    return () => { if (coverTimerRef.current) clearTimeout(coverTimerRef.current); };
-  }, []);
-
   return (
     <section className="relative h-screen overflow-hidden">
       {/* Background Preview Video */}
@@ -99,7 +84,7 @@ export default function HeroSection({
         ref={clipRef}
         className="absolute inset-0 -z-30 w-full h-full bg-black brightness-75 overflow-hidden pointer-events-none"
       >
-        {useNativeVideo && (previewClip.includes('.mp4') || previewClip.includes('b-cdn.net')) ? (
+        {useNativeVideo && previewClip.includes('.mp4') ? (
           <video
             src={previewClip}
             poster="/images/black-poster.jpg"
@@ -121,7 +106,7 @@ export default function HeroSection({
               ...iframeStyles,
               pointerEvents: 'none',
             }}
-            title="Bunny Stream Preview Background"
+            title="Video Preview Background"
             loading="eager"
           />
         )}
@@ -180,21 +165,14 @@ export default function HeroSection({
             >
               <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border-2 border-antique/40 bg-black">
                 <iframe
-                  key="bunny-player-modal"
+                  key="hero-video-player-modal"
                   src={fullVideo}
                   frameBorder="0"
                   allow="autoplay; fullscreen; picture-in-picture; encrypted-media; web-share"
                   style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-                  title="Bunny Stream Video Player"
+                  title="Video Player"
                   allowFullScreen
                 />
-                {/* BLACK COVER — hides Bunny player UI during initialization, fades away after 2s */}
-                <div
-                  className="absolute inset-0 z-20 bg-black pointer-events-none transition-opacity duration-500 ease-in-out flex items-center justify-center"
-                  style={{ opacity: coverVisible ? 1 : 0 }}
-                >
-                  <div className="w-10 h-10 border-4 border-antique/30 border-t-blush rounded-full animate-spin" />
-                </div>
               </div>
             </motion.div>
           </motion.div>
