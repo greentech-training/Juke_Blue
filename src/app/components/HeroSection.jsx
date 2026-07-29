@@ -131,6 +131,12 @@ export default function HeroSection({
 
       {/* Hero Content */}
       <div className="relative z-10 px-4 max-w-4xl mx-auto py-16 flex flex-col justify-center items-center min-h-screen text-center">
+        {/* Visually hidden h1 — gives Google a real heading to anchor the page title.
+            Without this, Googlebot falls back to image alt text and produces
+            wrong search titles like "Logo Juke Blue Text". */}
+        {title && (
+          <h1 className="sr-only">{title}</h1>
+        )}
         <p className="font-title text-xl md:text-3xl text-antique mb-6 leading-relaxed">
           {description}
         </p>

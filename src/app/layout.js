@@ -25,6 +25,17 @@ export const metadata = {
     template: "%s | Juke Blue",
   },
   description: "Experience the deep and captivating essence of Double Blue Spirit, meticulously crafted in Germany for a smooth and memorable finish.",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+  alternates: {
+    canonical: 'https://jukeblue.com',
+  },
   openGraph: {
     title: "Juke Blue | Premium Spirits Forged by the Sea",
     description: "Experience the deep and captivating essence of Double Blue Spirit, meticulously crafted in Germany for a smooth and memorable finish.",
