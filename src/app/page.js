@@ -8,7 +8,7 @@ export default function Home() {
     <div className="relative z-10">
       <HeroSection
         previewClip="/videos/On a mission from God Preview.mp4"
-        fullVideo="https://www.youtube.com/embed/bHOr2O0oOA8?autoplay=1"
+        fullVideo="https://www.youtube.com/embed/wH1c22sLtx0?autoplay=1"
         title="Juke Blue | Spirits Forged by the Sea"
         description="Juke Blue's Double Blue instills the holy essence of Nature into every blessed drop.
           Its secret was revealed as he stood destitute on the shores of the Aegean Sea."
