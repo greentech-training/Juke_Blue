@@ -117,6 +117,17 @@ const BrevoSubscribeForm = () => {
       {status === "sending" && <div className="text-center" style={{ color: "#C68CAF", paddingTop: "10px" }}>Subscribing...</div>}
       {status === "error" && <div className="text-center" style={{ color: "#F2E3C0", paddingTop: "10px" }}>{message}</div>}
       {status === "success" && <div className="text-center" style={{ color: "#C68CAF", paddingTop: "10px" }}>Thank you! Please now check your inbox to confirm your email.</div>}
+      <p className="text-[11px] text-antique/60 text-center mt-3 leading-tight">
+        This site is protected by reCAPTCHA and the Google{' '}
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-blush">
+          Privacy Policy
+        </a>{' '}
+        and{' '}
+        <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="underline hover:text-blush">
+          Terms of Service
+        </a>{' '}
+        apply.
+      </p>
     </div>
   );
 };

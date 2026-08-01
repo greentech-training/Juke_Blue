@@ -98,3 +98,8 @@ body.overflow-hidden {
     font-size: 0.875rem;
   }
 }
+
+/* Hide Google reCAPTCHA v3 floating badge */
+.grecaptcha-badge {
+  visibility: hidden !important;
+}
