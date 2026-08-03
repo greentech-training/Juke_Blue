@@ -86,7 +86,8 @@ const TunesPage = () => {
      {/* Hero Section */}
       
       <HeroSection
-        previewClip="https://www.youtube.com/embed/wDXdBQGRkcY?autoplay=1&mute=1&loop=1&controls=0&playlist=wDXdBQGRkcY"
+        previewClip="/videos/Too Young Preview.mp4"
+        useNativeVideo={true}
         fullVideo="https://www.youtube.com/embed/bHOr2O0oOA8"
         title="Heavenly Melodies"
         description="Twelve heavenly melodies for you to enjoy."
