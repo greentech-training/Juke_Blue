@@ -10,7 +10,7 @@ const BrevoSubscribeForm = () => {
   const [message, setMessage] = useState('');
 
   // reCAPTCHA v3 site key (public key - safe to hardcode)
-  const siteKey = '6LdV0GstAAAAACSprzLR5HTWAo8sazs-BBMopa4l';
+  const siteKey = '6LcTOnMtAAAAAG8D6dzdkr0h2f0938toNlMTcz5O';
 
   useEffect(() => {
     if (!siteKey) return;
